@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./css/HospitalLogin.module.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const HospitalLogin = () => {
     const [userId, setUserId] = useState("");
@@ -8,12 +9,14 @@ const HospitalLogin = () => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    const history = useHistory();
+
     const formSubmitHandler = (event) => {
         event.preventDefault();
         setError(false);
         const options = {
             method: "POST",
-            url: "https://healthify-backend.onrender.com/api/hospital/signin",
+            url: "http://localhost:4000/api/hospital/signin",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -27,6 +30,7 @@ const HospitalLogin = () => {
             .request(options)
             .then((response) => {
                 localStorage.setItem("hospitalToken", response.data.token);
+                history.push("/hospital/search");
             })
             .catch((err) => {
                 setError(true);
