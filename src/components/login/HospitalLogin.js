@@ -17,7 +17,7 @@ const HospitalLogin = () => {
         setError(false);
         const options = {
             method: "POST",
-            url: "https://healthify-backend.onrender.com/apihospital/signin",
+            url: "https://healthify-backend.onrender.com/api/hospital/signin",
             headers: {
                 "Content-Type": "application/json",
             },

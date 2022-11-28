@@ -28,7 +28,7 @@ const PatientSignUpPage = () => {
 
         const options = {
             method: "POST",
-            url: "https://healthify-backend.onrender.com/apiadmin/patient/signup",
+            url: "https://healthify-backend.onrender.com/api/admin/patient/signup",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
             },

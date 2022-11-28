@@ -11,7 +11,7 @@ const PatientRecordPage = (props) => {
     useEffect(() => {
         const options = {
             method: "GET",
-            url: `https://healthify-backend.onrender.com/apihospital/patient/search/record/${id.trim()}`,
+            url: `https://healthify-backend.onrender.com/api/hospital/patient/search/record/${id.trim()}`,
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("hospitalToken")}`,
             },

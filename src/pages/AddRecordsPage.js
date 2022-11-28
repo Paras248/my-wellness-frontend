@@ -24,7 +24,7 @@ const AddRecordsPage = () => {
         event.preventDefault();
         const options = {
             method: "POST",
-            url: "https://healthify-backend.onrender.com/apihospital/patient/record/add",
+            url: "https://healthify-backend.onrender.com/api/hospital/patient/record/add",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("hospitalToken")}`,
             },
