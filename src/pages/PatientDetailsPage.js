@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../components/header/Header";
 import PatientDetail from "../components/patientDetails/PatientDetail";
-import { NavLink } from "react-router-dom";
 import styles from "./css/PatientDetails.module.css";
 import RecordCard from "../components/patientDetails/RecordCard";
 
