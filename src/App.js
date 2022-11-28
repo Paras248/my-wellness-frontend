@@ -2,9 +2,11 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import AddRecordsPage from "./pages/AddRecordsPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
+import DoctorSignUpPage from "./pages/DoctorSignUpPage";
 import HomePage from "./pages/HomePage";
 import HospitalLoginPage from "./pages/HospitalLoginPage";
 import HospitalSearchPage from "./pages/HospitalSearchPage";
+import HospitalSignUpPage from "./pages/HospitalSignUpPage";
 import PatientDetailsPage from "./pages/PatientDetailsPage";
 import PatientRecordPage from "./pages/PatientRecordPage";
 import PatientSignUpPage from "./pages/PatientSignUpPage";
@@ -35,6 +37,12 @@ function App() {
             </Route>
             <Route path="/admin/signup/patient" exact>
                 <PatientSignUpPage />
+            </Route>
+            <Route path="/admin/signup/doctor" exact>
+                <DoctorSignUpPage />
+            </Route>
+            <Route path="/admin/signup/hospital" exact>
+                <HospitalSignUpPage />
             </Route>
         </Switch>
     );

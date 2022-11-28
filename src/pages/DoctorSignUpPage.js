@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import Header from "../components/header/Header";
 import styles from "./css/PatientsignUp.module.css";
 
-const PatientSignUpPage = () => {
+const DoctorSignUpPage = () => {
     const [firstName, setFirstName] = useState("");
     const [middleName, setMiddleName] = useState("");
     const [lastName, setLastName] = useState("");
     const [contactNo, setContactNo] = useState("");
-    const [date, setDate] = useState("");
+    const [qualification, setQualification] = useState("");
     const [age, setAge] = useState(0);
     const [gender, setGender] = useState("Male");
     const [address, setAddress] = useState("");
@@ -23,34 +23,32 @@ const PatientSignUpPage = () => {
     };
 
     const onFormSubmitHandler = (event) => {
-        event.preventDefault();
         setError(false);
-
+        event.preventDefault();
         const options = {
             method: "POST",
-            url: "http://localhost:4000/api/admin/patient/signup",
+            url: "http://localhost:4000/api/admin/doctor/signup",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
             },
-
             data: {
                 firstName,
                 middleName,
                 lastName,
                 contactNo,
-                dateOfBirth: `${date}T00:00:00.000Z`,
+                qualification,
                 age: +age,
                 gender,
                 address,
                 email,
                 password,
-                isAlive: true,
             },
         };
         axios
             .request(options)
             .then((response) => {
-                alert("Registered Patient Successfully!!!");
+                window.alert("Registered Doctor Successfully!!!");
+                console.log(response.data);
             })
             .catch((err) => {
                 setError(true);
@@ -60,7 +58,7 @@ const PatientSignUpPage = () => {
 
     return (
         <div className={styles.background}>
-            <Header patientSignUp />
+            <Header doctorSignUp />
             <p
                 style={{
                     fontSize: 20,
@@ -69,7 +67,7 @@ const PatientSignUpPage = () => {
                     marginTop: "5%",
                 }}
             >
-                Register Patient
+                Register Doctor
             </p>
             <form onSubmit={onFormSubmitHandler} className={styles.form}>
                 {error && (
@@ -104,13 +102,22 @@ const PatientSignUpPage = () => {
                         onChange={(e) => onInputChangeHandler(e, setContactNo)}
                     />
                 </div>
+
                 <div className={`${styles.inputContainer}`}>
-                    <p>Date Of Birth: </p>
+                    <p>Qualification</p>
                     <input
-                        id="dob"
-                        type="date"
-                        onChange={(e) => onInputChangeHandler(e, setDate)}
+                        value={qualification}
+                        onChange={(e) => onInputChangeHandler(e, setQualification)}
                     />
+                </div>
+
+                <div className={`${styles.inputContainer}`}>
+                    <p>Gender: </p>
+                    <select onChange={(e) => onInputChangeHandler(e, setGender)}>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+                    </select>
                 </div>
 
                 <div className={`${styles.inputContainer}`}>
@@ -123,20 +130,13 @@ const PatientSignUpPage = () => {
                 </div>
 
                 <div className={`${styles.inputContainer}`}>
-                    <p>Gender: </p>
-                    <select onChange={(e) => onInputChangeHandler(e, setGender)}>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Others">Others</option>
-                    </select>
-                </div>
-                <div className={`${styles.inputContainer}`}>
                     <p>Address: </p>
                     <input
                         value={address}
                         onChange={(e) => onInputChangeHandler(e, setAddress)}
                     />
                 </div>
+
                 <div className={`${styles.inputContainer}`}>
                     <p>Email: </p>
                     <input
@@ -160,4 +160,4 @@ const PatientSignUpPage = () => {
     );
 };
 
-export default PatientSignUpPage;
+export default DoctorSignUpPage;
