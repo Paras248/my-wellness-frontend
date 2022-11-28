@@ -22,7 +22,7 @@ const HospitalSearchPage = () => {
         if (event.key === "Enter") {
             const options = {
                 method: "GET",
-                url: `http://localhost:4000/api/hospital/patient/search?patientId=${patientId}`,
+                url: `https://healthify-backend.onrender.com/apihospital/patient/search?patientId=${patientId}`,
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("hospitalToken")}`,

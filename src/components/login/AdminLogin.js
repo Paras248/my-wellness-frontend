@@ -16,7 +16,7 @@ const AdminLogin = () => {
         setError(false);
         const options = {
             method: "POST",
-            url: "http://localhost:4000/api/admin/signin",
+            url: "https://healthify-backend.onrender.com/apiadmin/signin",
             headers: {
                 "Content-Type": "application/json",
             },

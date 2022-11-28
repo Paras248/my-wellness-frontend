@@ -23,7 +23,7 @@ const HospitalSignUpPage = () => {
         event.preventDefault();
         const options = {
             method: "POST",
-            url: "http://localhost:4000/api/admin/hospital/signup",
+            url: "https://healthify-backend.onrender.com/apiadmin/hospital/signup",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
             },
