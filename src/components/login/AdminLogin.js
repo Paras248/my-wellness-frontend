@@ -2,19 +2,21 @@ import React, { useState } from "react";
 import styles from "./css/HospitalLogin.module.css";
 import axios from "axios";
 import image from "../../assets/Orthopedic-amico.svg";
+import { useHistory } from "react-router-dom";
 
 const AdminLogin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const history = useHistory();
 
     const formSubmitHandler = (event) => {
         event.preventDefault();
         setError(false);
         const options = {
             method: "POST",
-            url: "http://localhost:4000/api/hospital/signin",
+            url: "http://localhost:4000/api/admin/signin",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -22,12 +24,12 @@ const AdminLogin = () => {
                 email,
                 password,
             },
-            withCredentials: true,
         };
         axios
             .request(options)
             .then((response) => {
-                console.log(response.data);
+                localStorage.setItem("adminToken", response.data.token);
+                history.push("/admin/signup/Patient");
             })
             .catch((err) => {
                 setError(true);
