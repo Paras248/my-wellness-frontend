@@ -1,0 +1,37 @@
+.container {
+    margin-top: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 20px 25px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: 0.2s linear;
+}
+
+.container:hover {
+    transform: scale(1.01);
+}
+
+.container:last-child {
+    margin-bottom: 5%;
+}
+
+.text {
+    margin-top: -10px;
+}
+.title {
+    font-weight: bold;
+    color: teal;
+}
+
+.link {
+    float: right;
+    color: teal;
+    transition: 0.2s linear;
+    text-decoration: none;
+}
+
+.link:hover {
+    font-weight: bold;
+}

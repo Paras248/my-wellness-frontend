@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./css/HospitalLogin.module.css";
 import axios from "axios";
+import image from "../../assets/Orthopedic-amico.svg";
 
 const AdminLogin = () => {
     const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ const AdminLogin = () => {
         setError(false);
         const options = {
             method: "POST",
-            url: "https://healthify-backend.onrender.com/api/hospital/signin",
+            url: "http://localhost:4000/api/hospital/signin",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -44,9 +45,11 @@ const AdminLogin = () => {
     };
 
     return (
-        <div>
+        <div className={styles.gridContainer}>
             <form className={styles.form} onSubmit={formSubmitHandler}>
-                {error && <p style={{ color: "red" }}>{errorMessage}</p>}
+                <p style={{ fontSize: 25, fontWeight: "bold" }}>SignIn</p>
+
+                {error && <p style={{ color: "red", fontSize: 12 }}>{errorMessage}</p>}
                 <input
                     value={email}
                     placeholder="Email"
@@ -60,6 +63,9 @@ const AdminLogin = () => {
                 />
                 <button type="submit">Login</button>
             </form>
+            <div>
+                <img src={image} alt="doctor img" className={styles.image} />
+            </div>
         </div>
     );
 };

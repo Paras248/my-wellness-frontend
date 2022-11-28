@@ -7,6 +7,7 @@ import HospitalLoginPage from "./pages/HospitalLoginPage";
 import HospitalSearchPage from "./pages/HospitalSearchPage";
 import PatientDetailsPage from "./pages/PatientDetailsPage";
 import PatientRecordPage from "./pages/PatientRecordPage";
+import PatientSignUpPage from "./pages/PatientSignUpPage";
 
 function App() {
     return (
@@ -31,6 +32,9 @@ function App() {
             </Route>
             <Route path="/hospital/add/patient/record" exact>
                 <AddRecordsPage />
+            </Route>
+            <Route path="/admin/signup/patient" exact>
+                <PatientSignUpPage />
             </Route>
         </Switch>
     );

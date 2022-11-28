@@ -1,0 +1,33 @@
+.toggleButton {
+    font-size: 0.9em;
+    color: white;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background-color: rgb(23, 214, 150);
+    font-weight: bold;
+    transition: 0.2s linear;
+}
+
+.toggleButton:hover {
+    background-color: black;
+}
+
+.hospitalToggleButton {
+    font-size: 0.9em;
+    color: white;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background-color: rgb(41, 53, 224);
+    font-weight: bold;
+    transition: 0.2s linear;
+}
+
+.hospitalToggleButton:hover {
+    background-color: black;
+}

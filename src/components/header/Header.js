@@ -5,8 +5,8 @@ import HospitalSearchPatient from "./HospitalSearchPatient";
 import Login from "./Login";
 const Header = (props) => {
     return (
-        <header className={styles.header}>
-            <p>myWellness</p>
+        <header className={`${styles.header} ${props.shadow ? styles.shadow : null}`}>
+            <p className={styles.logo}>MyWellness</p>
             {props.login && <Login as={props.as} />}
             {props.home && <Home />}
             {props.searchPatient && <HospitalSearchPatient />}

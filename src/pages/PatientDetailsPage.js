@@ -26,37 +26,39 @@ const PatientDetailsPage = () => {
     date = date.join("-");
     return (
         <>
-            <Header searchPatient />
-            <div>
-                <ul>
-                    <PatientDetail
-                        title="Name"
-                        text={`${firstName} ${middleName} ${lastName}`}
-                    />
-                    <PatientDetail title="Id" text={id} />
-                    <PatientDetail title="Contact No" text={contactNo[0]} />
-                    <PatientDetail title="Email" text={email} />
-                    <PatientDetail title="Age" text={age} />
-                    <PatientDetail title="DOB" text={date} />
-                    <PatientDetail title="Address" text={address} />
-                    <PatientDetail
-                        title="Patient Status"
-                        text={isAlive ? "Alive" : "Dead"}
-                    />
-                </ul>
+            <Header searchPatient shadow />
+            <div className={styles.background}>
+                <div className={styles.patientCard}>
+                    <ul>
+                        <PatientDetail
+                            title="Name"
+                            text={`${firstName} ${middleName} ${lastName}`}
+                        />
+                        <PatientDetail title="Id" text={id} />
+                        <PatientDetail title="Contact No" text={contactNo[0]} />
+                        <PatientDetail title="Email" text={email} />
+                        <PatientDetail title="Age" text={age} />
+                        <PatientDetail title="DOB" text={date} />
+                        <PatientDetail title="Address" text={address} />
+                        <PatientDetail
+                            title="Patient Status"
+                            text={isAlive ? "Alive" : "Dead"}
+                        />
+                    </ul>
+                </div>
+                {records.map((record) => {
+                    return (
+                        <RecordCard
+                            key={id}
+                            diagnosis={record.diagnosis}
+                            medicines={record.medicines}
+                            description={record.description}
+                            date={record.createdAt}
+                            id={record.id}
+                        />
+                    );
+                })}
             </div>
-            {records.map((record) => {
-                return (
-                    <RecordCard
-                        key={id}
-                        diagnosis={record.diagnosis}
-                        medicines={record.medicines}
-                        description={record.description}
-                        date={record.createdAt}
-                        id={record.id}
-                    />
-                );
-            })}
         </>
     );
 };

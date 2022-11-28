@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import styles from "./css/RecordCard.module.css";
 
 const RecordCard = (props) => {
     const medicines = props.medicines.join(", ");
@@ -10,24 +11,37 @@ const RecordCard = (props) => {
     date = date.join("-");
 
     return (
-        <div>
+        <div className={styles.container}>
             <div style={{ display: "flex" }}>
-                <p style={{ marginRight: 10 }}>Diagnosis: </p>
+                <p style={{ marginRight: 10 }} className={styles.title}>
+                    Diagnosis:{" "}
+                </p>
                 <p>{props.diagnosis}</p>
             </div>
-            <div style={{ display: "flex" }}>
-                <p style={{ marginRight: 10 }}>Medicines:</p>
+            <div style={{ display: "flex" }} className={styles.text}>
+                <p style={{ marginRight: 10 }} className={styles.title}>
+                    Medicines:
+                </p>
                 <p>{medicines}</p>
             </div>
-            <div style={{ display: "flex" }}>
-                <p style={{ marginRight: 10 }}>Description:</p>
+            <div style={{ display: "flex" }} className={styles.text}>
+                <p style={{ marginRight: 10 }} className={styles.title}>
+                    Description:
+                </p>
                 <p>{props.description}</p>
             </div>
-            <div style={{ display: "flex" }}>
-                <p style={{ marginRight: 10 }}>Date: </p>
+            <div style={{ display: "flex" }} className={styles.text}>
+                <p style={{ marginRight: 10 }} className={styles.title}>
+                    Date:{" "}
+                </p>
                 <p>{date}</p>
             </div>
-            <Link to={`/hospital/search/patient/${props.id}`}>Know More</Link>
+            <Link
+                to={`/hospital/search/patient/${props.id}`}
+                className={`${styles.link} ${styles.text}`}
+            >
+                Read More...
+            </Link>
         </div>
     );
 };

@@ -1,12 +1,13 @@
 .form {
-    margin-top: 12%;
+    margin-top: 15%;
     display: flex;
     flex-direction: column;
-    margin-left: 35%;
-    margin-right: 35%;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 .form input {
+    font-size: 17px;
     margin-bottom: 10px;
     height: 40px;
     padding: 0 10px 0 10px;
@@ -14,4 +15,29 @@
 
 .form button {
     height: 40px;
+    background-color: rgb(41, 53, 224);
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    outline: none;
+    border: none;
+    transition: 0.27s linear;
+}
+
+.form button:hover {
+    background-color: black;
+}
+
+.form input:focus {
+    border: 3px solid rgb(0, 0, 0);
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.image {
+    width: 500px;
 }

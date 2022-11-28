@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import styles from "./css/AddRecords.module.css";
+import Header from "../components/header/Header";
 
 const AddRecordsPage = () => {
     const [diagnosis, setDiagnosis] = useState("");
@@ -46,36 +48,46 @@ const AddRecordsPage = () => {
             });
     };
     return (
-        <div>
+        <div className={styles.background}>
+            <Header />
             <div>
-                {error && <p>{errorMessage}</p>}
-                <form onSubmit={onFormsubmitHandler}>
+                <form onSubmit={onFormsubmitHandler} className={styles.form}>
+                    {error && <p style={{ color: "red" }}>{errorMessage}</p>}
+
                     <input
+                        id="diagnosis"
+                        className={styles.input}
                         value={diagnosis}
                         placeholder="Diagnosis"
                         onChange={(e) => onInputChangeHandler(e, setDiagnosis)}
                     />
                     <input
                         value={medicines}
+                        className={styles.input}
                         placeholder="medicines"
                         onChange={(e) => onInputChangeHandler(e, setMedicines)}
                     />
                     <input
                         value={patientId}
+                        className={styles.input}
                         placeholder="Patient Id"
                         onChange={(e) => onInputChangeHandler(e, setPatientId)}
                     />
                     <input
                         value={doctorId}
+                        className={styles.input}
                         placeholder="Doctor Id"
                         onChange={(e) => onInputChangeHandler(e, setDoctorId)}
                     />
                     <textarea
                         value={description}
+                        className={styles.textarea}
                         placeholder="Description"
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                    <button type="submit">Submit</button>
+                    <button className={styles.button} type="submit">
+                        Submit
+                    </button>
                 </form>
             </div>
         </div>

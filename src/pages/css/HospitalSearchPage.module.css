@@ -1,0 +1,45 @@
+.searchBarContainer {
+    position: absolute;
+    left: 25%;
+    top: 45%;
+    padding: 10px;
+    width: 50%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px,
+        rgba(17, 17, 26, 0.1) 0px 24px 80px;
+}
+
+.error {
+    color: red;
+    font-size: 15px;
+    position: absolute;
+    left: 25%;
+    top: 39%;
+}
+
+.searchBar {
+    flex: 1;
+    padding: 10px 10px;
+    outline: none;
+    border: none;
+    font-size: 14px;
+}
+
+.background {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url("/src/assets/searchBackground.jpg");
+    opacity: 0.9;
+    height: 100vh;
+}
+
+.icon {
+    color: grey;
+}
