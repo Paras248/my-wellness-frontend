@@ -8,6 +8,8 @@ import SignupLayout from "@/components/layouts/SignupOrAddLayout";
 import axios from "axios";
 import BlueButton from "@/components/header/BlueButton";
 import LogoutButton from "@/components/header/LogoutButton";
+import { useDisclosure } from "@chakra-ui/react";
+import IdModal from "@/components/admin/IdModal";
 
 const page = () => {
     const [firstName, setFirstName] = useState("");
@@ -27,6 +29,8 @@ const page = () => {
     const [country, setCountry] = useState("");
     const [pincode, setPincode] = useState("");
     const [qualification, setQualification] = useState("");
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [response, setResponse] = useState(null);
 
     const onFormSubmitHandler = (event) => {
         setError(false);
@@ -45,6 +49,8 @@ const page = () => {
             email: email.trim(),
             password: password.trim(),
             qualification: qualification.trim(),
+            age,
+            gender,
         };
 
         const options = {
@@ -58,8 +64,8 @@ const page = () => {
         axios
             .request(options)
             .then((response) => {
-                window.alert("Registered Doctor Successfully!!!");
-                console.log(response.data);
+                setResponse(response.data.user);
+                onOpen();
             })
             .catch((err) => {
                 setError(true);
@@ -69,6 +75,18 @@ const page = () => {
 
     return (
         <>
+            {isOpen && (
+                <IdModal
+                    id={response.doctorId}
+                    name={`${response.firstName} ${response.middleName} ${response.lastName}`}
+                    contact={response.contact}
+                    state={response.state}
+                    city={response.city}
+                    isOpen={isOpen}
+                    onOpen={onOpen}
+                    onClose={onClose}
+                />
+            )}
             <Header>
                 <BlueButton href='/admin/signup/patient' text='Register Patient' />
                 <BlueButton href='/admin/signup/hospital' text='Register Hospital' />

@@ -7,6 +7,8 @@ import SignupLayout from "@/components/layouts/SignupOrAddLayout";
 import axios from "axios";
 import BlueButton from "@/components/header/BlueButton";
 import LogoutButton from "@/components/header/LogoutButton";
+import { useDisclosure } from "@chakra-ui/react";
+import IdModal from "@/components/admin/IdModal";
 
 const page = () => {
     const [name, setName] = useState("");
@@ -21,7 +23,8 @@ const page = () => {
     const [country, setCountry] = useState("");
     const [pincode, setPincode] = useState("");
     const [type, setType] = useState("");
-
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [response, setResponse] = useState(null);
     const onFormSubmitHandler = (event) => {
         setError(false);
         event.preventDefault();
@@ -50,8 +53,8 @@ const page = () => {
         axios
             .request(options)
             .then((response) => {
-                window.alert("Registered Hospital Successfully!!!");
-                console.log(response.data);
+                setResponse(response.data.user);
+                onOpen();
             })
             .catch((err) => {
                 setError(true);
@@ -61,7 +64,18 @@ const page = () => {
 
     return (
         <>
-            {/* ================== childs yet to be added to header ================= */}
+            {isOpen && (
+                <IdModal
+                    id={response.hospitalId}
+                    name={response.name}
+                    contact={response.contact}
+                    state={response.state}
+                    city={response.city}
+                    isOpen={isOpen}
+                    onOpen={onOpen}
+                    onClose={onClose}
+                />
+            )}
             <Header>
                 <BlueButton href='/admin/signup/patient' text='Register Patient' />
                 <BlueButton href='/admin/signup/doctor' text='Register Doctor' />

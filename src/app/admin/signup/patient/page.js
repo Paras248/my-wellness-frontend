@@ -9,6 +9,8 @@ import axios from "axios";
 import Link from "next/link";
 import LogoutButton from "@/components/header/LogoutButton";
 import BlueButton from "@/components/header/BlueButton";
+import { useDisclosure } from "@chakra-ui/react";
+import IdModal from "@/components/admin/IdModal";
 
 const page = () => {
     const [firstName, setFirstName] = useState("");
@@ -27,6 +29,8 @@ const page = () => {
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
     const [pincode, setPincode] = useState("");
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [response, setResponse] = useState(null);
 
     const onFormSubmitHandler = (event) => {
         setError(false);
@@ -45,6 +49,9 @@ const page = () => {
             isAlive: true,
             email: email.trim(),
             password: password.trim(),
+            dob: date,
+            age,
+            gender,
         };
 
         const options = {
@@ -58,8 +65,8 @@ const page = () => {
         axios
             .request(options)
             .then((response) => {
-                window.alert("Registered Patient Successfully!!!");
-                console.log(response.data);
+                setResponse(response.data.user);
+                onOpen();
             })
             .catch((err) => {
                 setError(true);
@@ -69,6 +76,18 @@ const page = () => {
 
     return (
         <>
+            {isOpen && (
+                <IdModal
+                    id={response.patientId}
+                    name={`${response.firstName} ${response.middleName} ${response.lastName}`}
+                    contact={response.contact}
+                    state={response.state}
+                    city={response.city}
+                    isOpen={isOpen}
+                    onOpen={onOpen}
+                    onClose={onClose}
+                />
+            )}
             <Header>
                 <BlueButton href='/admin/signup/doctor' text='Register Doctor' />
                 <BlueButton href='/admin/signup/hospital' text='Register Hospital' />
