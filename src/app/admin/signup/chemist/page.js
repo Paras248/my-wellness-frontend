@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/header/Header";
 import LabelledInput from "@/components/signup/LabelledInput";
 import LabelledSelect from "@/components/signup/LabelledSelect";
@@ -8,7 +8,7 @@ import SignupLayout from "@/components/layouts/SignupOrAddLayout";
 import axios from "axios";
 import BlueButton from "@/components/header/BlueButton";
 import LogoutButton from "@/components/header/LogoutButton";
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 import IdModal from "@/components/admin/IdModal";
 
 const page = () => {
@@ -25,13 +25,11 @@ const page = () => {
     const [pincode, setPincode] = useState("");
     const [qualification, setQualification] = useState("");
     const [shopName, setShopName] = useState("");
-    const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [response, setResponse] = useState(null);
+    const toast = useToast();
 
     const onFormSubmitHandler = (event) => {
-        setError(false);
         event.preventDefault();
 
         const data = {
@@ -65,8 +63,13 @@ const page = () => {
                 onOpen();
             })
             .catch((err) => {
-                setError(true);
-                setErrorMessage(err.response.data);
+                toast({
+                    title: err.response.data,
+                    status: "error",
+                    isClosable: false,
+                    position: "bottom-right",
+                    duration: 2000,
+                });
             });
     };
 
@@ -92,7 +95,6 @@ const page = () => {
             </Header>
             <SignupLayout heading='Register Chemist'>
                 <form onSubmit={onFormSubmitHandler}>
-                    {error && <p className='text-[red] ml-[2%]'>{errorMessage}</p>}
                     <LabelledInput
                         label='First Name'
                         id='FirstName'

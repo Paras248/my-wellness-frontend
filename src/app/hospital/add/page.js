@@ -8,6 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import BlueButton from "@/components/header/BlueButton";
 import LogoutButton from "@/components/header/LogoutButton";
+import { useToast } from "@chakra-ui/react";
 
 const page = () => {
     const [diagnosis, setDiagnosis] = useState("");
@@ -15,18 +16,15 @@ const page = () => {
     const [doctorId, setDoctorId] = useState("");
     const [hospitalId, setHospitalId] = useState("");
     const [description, setDescription] = useState("");
-    const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
 
     const [medicine, setMedicine] = useState("");
     const [dosage, setDosage] = useState("");
     const [medicines, setMedicines] = useState([]);
-
+    const toast = useToast();
     const router = useRouter();
 
     const onFormsubmitHandler = (event) => {
         event.preventDefault();
-        setError(false);
         const options = {
             method: "POST",
             url: "http://localhost:9000/api/data/patient/add-record",
@@ -52,12 +50,25 @@ const page = () => {
         axios
             .request(options)
             .then((response) => {
-                window.alert("Record added successfully");
-                router.push("/hospital/search");
+                toast({
+                    title: "Record added successfully!",
+                    status: "success",
+                    isClosable: true,
+                    position: "top",
+                    duration: 2000,
+                    onCloseComplete: () => {
+                        router.push("/hospital/search");
+                    },
+                });
             })
             .catch((err) => {
-                setError(true);
-                setErrorMessage(err.response.data);
+                toast({
+                    title: err.response.data,
+                    status: "error",
+                    isClosable: false,
+                    position: "bottom-right",
+                    duration: 2000,
+                });
             });
     };
 
@@ -70,7 +81,6 @@ const page = () => {
 
             <SignupOrAddLayout>
                 <form onSubmit={onFormsubmitHandler}>
-                    {error && <p className='text-[red]'>{errorMessage}</p>}
                     <BorderedInput
                         value={diagnosis}
                         setFunction={setDiagnosis}

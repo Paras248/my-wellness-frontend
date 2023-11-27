@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react";
+import {
+    Button,
+    Input,
+    InputGroup,
+    InputLeftElement,
+    InputRightElement,
+    useToast,
+} from "@chakra-ui/react";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -7,11 +14,22 @@ import { useRouter } from "next/navigation";
 const SearchInput = (props) => {
     const [patientId, setPatientId] = useState("");
     const [entered, setEntered] = useState(false);
+    const toast = useToast();
     const routeTo =
         props.searchAs === "chemist" ? "/chemist/prescription" : "/hospital/search/patient";
     const router = useRouter();
 
     const onClickHandler = (event) => {
+        if (patientId.trim().length === 0) {
+            toast({
+                title: "Patient id required!!!",
+                status: "error",
+                isClosable: false,
+                position: "bottom-right",
+                duration: 2000,
+            });
+            return;
+        }
         const options = {
             method: "GET",
             url: `http://localhost:9000/api/data/patient/${patientId.trim()}`,

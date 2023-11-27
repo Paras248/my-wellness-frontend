@@ -19,7 +19,7 @@ const page = () => {
                 <BlueButton href='/hospital/search' text='Search Patient' />
                 <LogoutButton logoutFor='admin' />
             </Header>
-            <div className='absolute w-full h-screen bg-[#f7f7f7]'>
+            <div className='absolute w-full min-h-screen bg-[#f7f7f7] '>
                 <div className='p-[20px] rounded-[5px] ml-[12%] mr-[15%]'>
                     <ul>
                         <PatientDetail

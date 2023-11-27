@@ -8,7 +8,7 @@ import SignupLayout from "@/components/layouts/SignupOrAddLayout";
 import axios from "axios";
 import BlueButton from "@/components/header/BlueButton";
 import LogoutButton from "@/components/header/LogoutButton";
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 import IdModal from "@/components/admin/IdModal";
 
 const page = () => {
@@ -22,8 +22,6 @@ const page = () => {
     const [address, setAddress] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
@@ -31,9 +29,9 @@ const page = () => {
     const [qualification, setQualification] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [response, setResponse] = useState(null);
+    const toast = useToast();
 
     const onFormSubmitHandler = (event) => {
-        setError(false);
         event.preventDefault();
 
         const data = {
@@ -68,8 +66,13 @@ const page = () => {
                 onOpen();
             })
             .catch((err) => {
-                setError(true);
-                setErrorMessage(err.response.data);
+                toast({
+                    title: err.response.data,
+                    status: "error",
+                    isClosable: false,
+                    position: "bottom-right",
+                    duration: 2000,
+                });
             });
     };
 
@@ -95,7 +98,6 @@ const page = () => {
             </Header>
             <SignupLayout heading='Register Doctor'>
                 <form onSubmit={onFormSubmitHandler}>
-                    {error && <p className='text-[red] ml-[2%]'>{errorMessage}</p>}
                     <LabelledInput
                         label='First Name'
                         id='FirstName'
