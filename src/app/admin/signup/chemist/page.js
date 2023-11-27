@@ -45,13 +45,7 @@ const page = () => {
             qualification: qualification.trim(),
             shopName: shopName.trim(),
         };
-        for (let ele in data) {
-            if (data[ele].length === 0) {
-                setError(true);
-                setErrorMessage("All fields are required");
-                return;
-            }
-        }
+
         const options = {
             method: "POST",
             url: "http://localhost:9000/api/auth/signup/chemist",

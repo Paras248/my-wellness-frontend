@@ -46,17 +46,6 @@ const page = () => {
             email: email.trim(),
             password: password.trim(),
         };
-        for (let ele in data) {
-            if (data[ele].length === 0) {
-                setError(true);
-                setErrorMessage("All fields are required");
-                return;
-            }
-        }
-
-        data["gender"] = gender;
-        data["dob"] = `${date}`;
-        data["age"] = age;
 
         const options = {
             method: "POST",
@@ -83,7 +72,7 @@ const page = () => {
             <Header>
                 <BlueButton href='/admin/signup/doctor' text='Register Doctor' />
                 <BlueButton href='/admin/signup/hospital' text='Register Hospital' />
-                <BlueButton href='/admin/signup/chemist' text='Register Chemist'    />
+                <BlueButton href='/admin/signup/chemist' text='Register Chemist' />
                 <LogoutButton logoutFor='admin' />
             </Header>
             <SignupLayout heading='Register Patient'>

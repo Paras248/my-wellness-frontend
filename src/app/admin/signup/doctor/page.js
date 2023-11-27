@@ -46,17 +46,6 @@ const page = () => {
             password: password.trim(),
             qualification: qualification.trim(),
         };
-        for (let ele in data) {
-            if (data[ele].length === 0) {
-                setError(true);
-                setErrorMessage("All fields are required");
-                return;
-            }
-        }
-
-        data["gender"] = gender;
-        data["DOB"] = `${date}`;
-        data["age"] = age;
 
         const options = {
             method: "POST",
