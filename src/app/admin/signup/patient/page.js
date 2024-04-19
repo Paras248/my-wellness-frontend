@@ -11,6 +11,7 @@ import LogoutButton from "@/components/header/LogoutButton";
 import NavButton from "@/components/header/NavButton";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import IdModal from "@/components/admin/IdModal";
+import LoaderModal from "@/components/common/LoaderModal";
 
 const page = () => {
     const [firstName, setFirstName] = useState("");
@@ -79,6 +80,21 @@ const page = () => {
                     duration: 2000,
                 });
             });
+
+        setFirstName("");
+        setMiddleName("");
+        setLastName("");
+        setContactNo("");
+        setDate("");
+        setAge(0);
+        setGender("Male");
+        setAddress("");
+        setEmail("");
+        setPassword("");
+        setCity("");
+        setState("");
+        setCountry("");
+        setPincode("");
     };
 
     return (
@@ -108,6 +124,7 @@ const page = () => {
             </Header>
             <SignupLayout heading='Register Patient'>
                 <form onSubmit={onFormSubmitHandler}>
+                    {isLoading && <LoaderModal />}
                     <LabelledInput
                         label='First Name'
                         id='FirstName'

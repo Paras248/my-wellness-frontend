@@ -17,8 +17,8 @@ const Header = ({ children, ...props }) => {
 
     return (
         <>
-            <header className='flex flex-row py-6 px-3 items-center' {...props}>
-                <Link href='/' className='flex-1 ml-4'>
+            <header className='flex flex-row py-6 px-3 items-center justify-between' {...props}>
+                <Link href='/' className='ml-4'>
                     <p className='text-[1.1em] text-[#1fbea9] font-bold '>MyWellness</p>
                 </Link>
                 <button

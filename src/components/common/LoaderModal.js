@@ -7,15 +7,9 @@ import Lottie from "lottie-react";
 const LoaderModal = () => {
     return (
         <Modal isOpen={true} isCentered={true}>
-            <ModalOverlay />
-            <ModalContent>
-                <ModalBody>
-                    <div className=' p-[9rem] flex flex-col justify-center items-center'>
-                        <Lottie animationData={LoaderAnimation} loop={true} className='w-[10rem]' />
-                        <p className='grey text-[1.1rem]'>Please wait...</p>
-                    </div>
-                </ModalBody>
-            </ModalContent>
+            <ModalOverlay className='flex flex-row justify-center items-center'>
+                <Lottie animationData={LoaderAnimation} loop={true} className='w-[10rem]' />
+            </ModalOverlay>
         </Modal>
     );
 };

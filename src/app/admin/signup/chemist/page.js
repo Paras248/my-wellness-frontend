@@ -10,6 +10,7 @@ import NavButton from "@/components/header/NavButton";
 import LogoutButton from "@/components/header/LogoutButton";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import IdModal from "@/components/admin/IdModal";
+import LoaderModal from "@/components/common/LoaderModal";
 
 const page = () => {
     const [firstName, setFirstName] = useState("");
@@ -75,6 +76,19 @@ const page = () => {
                     duration: 2000,
                 });
             });
+        setFirstName("");
+        setMiddleName("");
+        setLastName("");
+        setContactNo("");
+        setAddress("");
+        setEmail("");
+        setPassword("");
+        setCity("");
+        setState("");
+        setCountry("");
+        setPincode("");
+        setQualification("");
+        setShopName("");
     };
 
     return (
@@ -104,6 +118,7 @@ const page = () => {
             </Header>
             <SignupLayout heading='Register Chemist'>
                 <form onSubmit={onFormSubmitHandler}>
+                    {isLoading && <LoaderModal />}
                     <LabelledInput
                         label='First Name'
                         id='FirstName'

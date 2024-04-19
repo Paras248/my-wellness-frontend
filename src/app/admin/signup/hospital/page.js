@@ -9,6 +9,7 @@ import NavButton from "@/components/header/NavButton";
 import LogoutButton from "@/components/header/LogoutButton";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import IdModal from "@/components/admin/IdModal";
+import LoaderModal from "@/components/common/LoaderModal";
 
 const page = () => {
     const [name, setName] = useState("");
@@ -68,6 +69,16 @@ const page = () => {
                     duration: 2000,
                 });
             });
+        setName("");
+        setContactNo("");
+        setAddress("");
+        setEmail("");
+        setPassword("");
+        setCity("");
+        setState("");
+        setCountry("");
+        setPincode("");
+        setType("");
     };
 
     return (
@@ -97,6 +108,7 @@ const page = () => {
             </Header>
             <SignupLayout heading='Register Hospital'>
                 <form onSubmit={onFormSubmitHandler}>
+                    {isLoading && <LoaderModal />}
                     <LabelledInput
                         label='Name'
                         id='name'

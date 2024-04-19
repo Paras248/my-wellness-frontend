@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import NavButton from "@/components/header/NavButton";
 import LogoutButton from "@/components/header/LogoutButton";
 import { useToast } from "@chakra-ui/react";
+import LoaderModal from "@/components/common/LoaderModal";
 
 const page = () => {
     const [diagnosis, setDiagnosis] = useState("");
@@ -16,7 +17,7 @@ const page = () => {
     const [doctorId, setDoctorId] = useState("");
     const [hospitalId, setHospitalId] = useState("");
     const [description, setDescription] = useState("");
-
+    const [isLoading, setIsLoading] = useState(false);
     const [medicine, setMedicine] = useState("");
     const [dosage, setDosage] = useState("");
     const [medicines, setMedicines] = useState([]);
@@ -25,6 +26,7 @@ const page = () => {
 
     const onFormsubmitHandler = (event) => {
         event.preventDefault();
+        setIsLoading(true);
         const options = {
             method: "POST",
             url: "https://mywellness-paras248.koyeb.app/api/data/patient/add-record",
@@ -50,6 +52,7 @@ const page = () => {
         axios
             .request(options)
             .then((response) => {
+                setIsLoading(true);
                 toast({
                     title: "Record added successfully!",
                     status: "success",
@@ -62,6 +65,7 @@ const page = () => {
                 });
             })
             .catch((err) => {
+                setIsLoading(false);
                 toast({
                     title: err.response.data,
                     status: "error",
@@ -84,6 +88,7 @@ const page = () => {
 
             <SignupOrAddLayout>
                 <form onSubmit={onFormsubmitHandler}>
+                    {isLoading && <LoaderModal />}
                     <BorderedInput
                         value={diagnosis}
                         setFunction={setDiagnosis}
@@ -133,6 +138,8 @@ const page = () => {
                                         { name: medicine, description: dosage },
                                     ]);
                                 }
+                                setMedicine("");
+                                setDosage("");
                             }}
                         >
                             Add
@@ -149,7 +156,13 @@ const page = () => {
                             </div>
                         );
                     })}
-                    <SubmitButton text='Submit' />
+                    <SubmitButton
+                        text='Submit'
+                        isLoading={isLoading}
+                        variant='outline'
+                        spinnerPlacement='start'
+                        loadingText='Submitting'
+                    />
                 </form>
             </SignupOrAddLayout>
         </>
