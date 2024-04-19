@@ -6,7 +6,7 @@ const LogoutButton = (props) => {
     return (
         <Link href='/' className='no-underline'>
             <button
-                className='flex justify-center items-center w-full py-[10px] px-[20px] text-[14.5px] bg-[#0f0fec] outline-none border-none text-white font-bold rounded-[30px] transition duration-200 ease-linear hover:bg-[#1616b1]'
+                className='flex justify-center mb-[6em] items-center w-full py-[20px] px-[20px] text-[15.5px]  outline-none border-none text-white font-bold rounded-[10px] transition duration-100 ease-linear bg-[#42c6ae] hover:bg-[#38ad97]'
                 onClick={() => localStorage.removeItem(`${props.logoutFor}Token`)}
             >
                 Logout

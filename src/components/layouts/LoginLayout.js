@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import LoaderModal from "../common/LoaderModal";
 
 const LoginLayout = (props) => {
     const [show, setShow] = useState(false);
@@ -10,24 +11,25 @@ const LoginLayout = (props) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const configCreator = (user) => {
         switch (user) {
             case "admin":
                 return {
-                    url: "http://localhost:9000/api/auth/login/admin",
+                    url: "https://mywellness-paras248.koyeb.app/api/auth/login/admin",
                     tokenName: "adminToken",
                     onSuccesRouteToPath: "/admin/signup/patient",
                 };
             case "hospital":
                 return {
-                    url: "http://localhost:9000/api/auth/login/hospital",
+                    url: "https://mywellness-paras248.koyeb.app/api/auth/login/hospital",
                     tokenName: "hospitalToken",
                     onSuccesRouteToPath: "/hospital/search",
                 };
             case "chemist":
                 return {
-                    url: "http://localhost:9000/api/auth/login/chemist",
+                    url: "https://mywellness-paras248.koyeb.app/api/auth/login/chemist",
                     tokenName: "chemistToken",
                     onSuccesRouteToPath: "/chemist/search",
                 };
@@ -43,6 +45,7 @@ const LoginLayout = (props) => {
     const formSubmitHandler = (event) => {
         event.preventDefault();
         setError(false);
+        setIsLoading(true);
         const options = {
             method: "POST",
             url,
@@ -57,10 +60,12 @@ const LoginLayout = (props) => {
         axios
             .request(options)
             .then((response) => {
+                setIsLoading(false);
                 localStorage.setItem(tokenName, response.data);
                 router.push(onSuccesRouteToPath);
             })
             .catch((err) => {
+                setIsLoading(false);
                 setError(true);
                 setErrorMessage(err.response.data);
             });
@@ -76,6 +81,7 @@ const LoginLayout = (props) => {
     return (
         <>
             <div className='grid grid-cols-2 min-h-[80vh]'>
+                {isLoading && <LoaderModal />}
                 <form
                     className='flex flex-col mt-[20%] ml-[25%] mr-[25%] gap-3'
                     onSubmit={formSubmitHandler}
@@ -111,8 +117,12 @@ const LoginLayout = (props) => {
                         </InputRightElement>
                     </InputGroup>
                     <Button
+                        isLoading={isLoading}
                         type='submit'
+                        loadingText='Logging In'
                         className='h-[40px] bg-[#2935e0] hover:bg-black rounded-[5px] text-[white] font-bold text-[15px] outline-none border-none transition duration-270 ease-linear'
+                        variant='outline'
+                        spinnerPlacement='start'
                     >
                         Login
                     </Button>

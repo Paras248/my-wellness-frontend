@@ -4,20 +4,17 @@ import LoginLayout from "@/components/layouts/LoginLayout";
 import React from "react";
 import image from "../../../../public/Doctors-rafiki.svg";
 import Link from "next/link";
+import NavButton from "@/components/header/NavButton";
 
 const page = () => {
     return (
         <>
             <Header>
-                <Link href='/login/admin' className='duration-300 ease-linear hover:font-bold'>
-                    Login as admin
-                </Link>
-                <Link href='/login/hospital' className='font-bold'>
-                    Login as hospital
-                </Link>
-                <Link href='/login/chemist' className='duration-300 ease-linear hover:font-bold'>
-                    Login as chemist
-                </Link>
+                <div className='flex flex-col gap-4'>
+                    <NavButton href='/login/admin' text='Login as admin' />
+                    <NavButton active href='/login/hospital' text='Login as hospital' />
+                    <NavButton href='/login/chemist' text='Login as chemist' />
+                </div>
             </Header>
             <LoginLayout placeholder='User Id' imageSource={image} loginFor='hospital' />
         </>

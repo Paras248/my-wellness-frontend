@@ -5,7 +5,7 @@ import LabelledInput from "@/components/signup/LabelledInput";
 import SubmitButton from "@/components/common/SubmitButton";
 import SignupLayout from "@/components/layouts/SignupOrAddLayout";
 import axios from "axios";
-import BlueButton from "@/components/header/BlueButton";
+import NavButton from "@/components/header/NavButton";
 import LogoutButton from "@/components/header/LogoutButton";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import IdModal from "@/components/admin/IdModal";
@@ -23,11 +23,13 @@ const page = () => {
     const [type, setType] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [response, setResponse] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
     const toast = useToast();
 
     const onFormSubmitHandler = (event) => {
         event.preventDefault();
-
+        setIsLoading(true);
         const data = {
             name: name.trim(),
             contact: contactNo.trim(),
@@ -43,7 +45,7 @@ const page = () => {
 
         const options = {
             method: "POST",
-            url: "http://localhost:9000/api/auth/signup/hospital",
+            url: "https://mywellness-paras248.koyeb.app/api/auth/signup/hospital",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
             },
@@ -52,10 +54,12 @@ const page = () => {
         axios
             .request(options)
             .then((response) => {
+                setIsLoading(false);
                 setResponse(response.data.user);
                 onOpen();
             })
             .catch((err) => {
+                setIsLoading(false);
                 toast({
                     title: err.response.data,
                     status: "error",
@@ -81,10 +85,15 @@ const page = () => {
                 />
             )}
             <Header>
-                <BlueButton href='/admin/signup/patient' text='Register Patient' />
-                <BlueButton href='/admin/signup/doctor' text='Register Doctor' />
-                <BlueButton href='/admin/signup/chemist' text='Register Chemist' />
-                <LogoutButton logoutFor='admin' />
+                <div className='flex flex-col gap-4'>
+                    <NavButton href='/admin/signup/patient' text='Register Patient' />
+                    <NavButton href='/admin/signup/doctor' text='Register Doctor' />
+                    <NavButton active href='/admin/signup/hospital' text='Register Hospital' />
+                    <NavButton href='/admin/signup/chemist' text='Register Chemist' />
+                </div>
+                <div>
+                    <LogoutButton logoutFor='admin' />
+                </div>
             </Header>
             <SignupLayout heading='Register Hospital'>
                 <form onSubmit={onFormSubmitHandler}>
@@ -158,7 +167,13 @@ const page = () => {
                         setFunction={setPassword}
                         type='text'
                     />
-                    <SubmitButton text='Register' />
+                    <SubmitButton
+                        text='Register'
+                        isLoading={isLoading}
+                        variant='outline'
+                        spinnerPlacement='start'
+                        loadingText='Registering'
+                    />
                 </form>
             </SignupLayout>
         </>

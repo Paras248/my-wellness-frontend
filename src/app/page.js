@@ -6,6 +6,7 @@ import mainImage from "../../public/main.svg";
 import Image from "next/image";
 import { Coiny } from "next/font/google";
 import Link from "next/link";
+import NavButton from "@/components/header/NavButton";
 const coiny = Coiny({ subsets: ["latin"], weight: ["400"] });
 
 export default function Home() {
@@ -17,15 +18,11 @@ export default function Home() {
                 alt='background image'
             />
             <Header>
-                <Link href='/login/admin' className='duration-300 ease-linear hover:font-bold'>
-                    Login as admin
-                </Link>
-                <Link href='/login/hospital' className='duration-300 ease-linear hover:font-bold'>
-                    Login as hospital
-                </Link>
-                <Link href='/login/chemist' className='duration-300 ease-linear hover:font-bold'>
-                    Login as chemist
-                </Link>
+                <div>
+                    <NavButton href='/login/admin' text='Login as admin' />
+                    <NavButton href='/login/hospital' text='Login as hospital' />
+                    <NavButton href='/login/chemist' text='Login as chemist' />
+                </div>
             </Header>
             <div>
                 <div className='grid grid-cols-2'>

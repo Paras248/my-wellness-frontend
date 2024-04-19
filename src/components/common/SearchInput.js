@@ -32,7 +32,7 @@ const SearchInput = (props) => {
         }
         const options = {
             method: "GET",
-            url: `http://localhost:9000/api/data/patient/${patientId.trim()}`,
+            url: `https://mywellness-paras248.koyeb.app/api/data/patient/${patientId.trim()}`,
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem(`${props.searchAs}Token`)}`,

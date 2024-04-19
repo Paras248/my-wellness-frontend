@@ -3,7 +3,7 @@ import React from "react";
 import PatientDetail from "@/components/common/PatientDetail";
 import Header from "@/components/header/Header";
 import RecordCard from "@/components/hospital/RecordCard";
-import BlueButton from "@/components/header/BlueButton";
+import NavButton from "@/components/header/NavButton";
 import LogoutButton from "@/components/header/LogoutButton";
 
 const PatientDetailsPage = () => {
@@ -11,7 +11,7 @@ const PatientDetailsPage = () => {
     return (
         <>
             <Header>
-                <BlueButton href='/chemist/search' text='Search Patient' />
+                <NavButton href='/chemist/search' text='Search Patient' />
                 <LogoutButton logoutFor='chemist' />
             </Header>
             <div className='absolute w-full h-screen bg-[#f7f7f7]'>

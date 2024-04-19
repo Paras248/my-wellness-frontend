@@ -6,7 +6,7 @@ import BorderedInput from "@/components/hospital/BorderedInput";
 import SignupOrAddLayout from "@/components/layouts/SignupOrAddLayout";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import BlueButton from "@/components/header/BlueButton";
+import NavButton from "@/components/header/NavButton";
 import LogoutButton from "@/components/header/LogoutButton";
 import { useToast } from "@chakra-ui/react";
 
@@ -27,7 +27,7 @@ const page = () => {
         event.preventDefault();
         const options = {
             method: "POST",
-            url: "http://localhost:9000/api/data/patient/add-record",
+            url: "https://mywellness-paras248.koyeb.app/api/data/patient/add-record",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("hospitalToken")}`,
             },
@@ -75,7 +75,10 @@ const page = () => {
     return (
         <>
             <Header>
-                <BlueButton href='/hospital/search' text='Search Patient' />
+                <div className='flex flex-col gap-4'>
+                    <NavButton href='/hospital/search' text='Search Patient' />
+                    <NavButton active href='/hospital/add' text='Add Record' />
+                </div>
                 <LogoutButton logoutFor='hospital' />
             </Header>
 
