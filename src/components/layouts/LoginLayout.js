@@ -60,14 +60,14 @@ const LoginLayout = (props) => {
         axios
             .request(options)
             .then((response) => {
-                setIsLoading(false);
                 localStorage.setItem(tokenName, response.data);
+                setIsLoading(false);
                 router.push(onSuccesRouteToPath);
             })
             .catch((err) => {
-                setIsLoading(false);
                 setError(true);
                 setErrorMessage(err.response.data);
+                setIsLoading(false);
             });
     };
     const onUserIdChangeHandler = (event) => {

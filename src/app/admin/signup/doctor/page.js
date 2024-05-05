@@ -130,6 +130,7 @@ const page = () => {
                         value={firstName}
                         setFunction={setFirstName}
                         type='text'
+                        name='FirstName'
                     />
                     <LabelledInput
                         label='Middle Name'
@@ -137,6 +138,7 @@ const page = () => {
                         value={middleName}
                         setFunction={setMiddleName}
                         type='text'
+                        name='MiddleName'
                     />
                     <LabelledInput
                         label='Last Name'
@@ -144,6 +146,7 @@ const page = () => {
                         value={lastName}
                         setFunction={setLastName}
                         type='text'
+                        name='LastName'
                     />
                     <LabelledInput
                         label='Contact No'
@@ -151,6 +154,7 @@ const page = () => {
                         value={contactNo}
                         setFunction={setContactNo}
                         type='text'
+                        name='ContactNo'
                     />
                     <LabelledInput
                         label='Date Of Birth'
@@ -158,6 +162,7 @@ const page = () => {
                         value={date}
                         setFunction={setDate}
                         type='date'
+                        name='dob'
                     />
                     <LabelledInput
                         label='Age'
@@ -165,14 +170,21 @@ const page = () => {
                         value={age}
                         setFunction={setAge}
                         type='number'
+                        name='age'
                     />
-                    <LabelledSelect label='Gender' id='gender' setFunction={setGender} />
+                    <LabelledSelect
+                        label='Gender'
+                        id='gender'
+                        name='gender'
+                        setFunction={setGender}
+                    />
                     <LabelledInput
                         label='Address'
                         id='address'
                         value={address}
                         setFunction={setAddress}
                         type='text'
+                        name='address'
                     />
                     <LabelledInput
                         label='City'
@@ -180,6 +192,7 @@ const page = () => {
                         value={city}
                         setFunction={setCity}
                         type='text'
+                        name='city'
                     />
                     <LabelledInput
                         label='Pincode'
@@ -187,6 +200,7 @@ const page = () => {
                         value={pincode}
                         setFunction={setPincode}
                         type='text'
+                        name='pincode'
                     />
                     <LabelledInput
                         label='State'
@@ -194,6 +208,7 @@ const page = () => {
                         value={state}
                         setFunction={setState}
                         type='text'
+                        name='state'
                     />
                     <LabelledInput
                         label='Country'
@@ -201,6 +216,7 @@ const page = () => {
                         value={country}
                         setFunction={setCountry}
                         type='text'
+                        name='country'
                     />
                     <LabelledInput
                         label='Qualification'
@@ -208,6 +224,7 @@ const page = () => {
                         value={qualification}
                         setFunction={setQualification}
                         type='text'
+                        name='qualification'
                     />
                     <LabelledInput
                         label='Email'
@@ -215,6 +232,7 @@ const page = () => {
                         value={email}
                         setFunction={setEmail}
                         type='text'
+                        name='email'
                     />
                     <LabelledInput
                         label='Password'
@@ -222,6 +240,7 @@ const page = () => {
                         value={password}
                         setFunction={setPassword}
                         type='text'
+                        name='password'
                     />
                     <SubmitButton
                         text='Register'

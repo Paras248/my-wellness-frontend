@@ -11,6 +11,7 @@ const LabelledInput = (props) => {
                 className='outline-none flex-1 border-t-0 border-l-0 border-r-0 border-b-[2px] border-black text-[17px] ml-[10px]'
                 value={props.value}
                 type={props.type}
+                name={props.name}
                 onChange={(e) => props.setFunction(e.target.value)}
             />
         </div>
