@@ -10,76 +10,75 @@ import LogoutButton from "@/components/header/LogoutButton";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import IdModal from "@/components/admin/IdModal";
 import LoaderModal from "@/components/common/LoaderModal";
+import { useFormik } from "formik";
+import { hospitalSchema } from "@/validations/hospitalValidation";
+
+const initialValues = {
+    name: "",
+    contactNo: "",
+    address: "",
+    type: "",
+    email: "",
+    password: "",
+    city: "",
+    state: "",
+    country: "",
+    pincode: "",
+};
 
 const page = () => {
-    const [name, setName] = useState("");
-    const [contactNo, setContactNo] = useState("");
-    const [address, setAddress] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
-    const [pincode, setPincode] = useState("");
-    const [type, setType] = useState("");
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+        initialValues,
+        validationSchema: hospitalSchema,
+        onSubmit: (values, action) => {
+            setIsLoading(true);
+            const data = {
+                name: values.name.trim(),
+                contact: values.contactNo.trim(),
+                address: values.address.trim(),
+                type: values.type.trim(),
+                email: values.email.trim(),
+                password: values.password.trim(),
+                city: values.city.trim(),
+                state: values.state.trim(),
+                country: values.country.trim(),
+                pincode: values.pincode.trim(),
+            };
+
+            const options = {
+                method: "POST",
+                url: "https://mywellness-paras248.koyeb.app/api/auth/signup/hospital",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+                },
+                data,
+            };
+            axios
+                .request(options)
+                .then((response) => {
+                    setIsLoading(false);
+                    action.resetForm();
+                    setResponse(response.data.user);
+                    onOpen();
+                })
+                .catch((err) => {
+                    setIsLoading(false);
+                    toast({
+                        title: err.response.data,
+                        status: "error",
+                        isClosable: false,
+                        position: "bottom-right",
+                        duration: 2000,
+                    });
+                });
+        },
+    });
+    console.log(errors);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [response, setResponse] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const toast = useToast();
-
-    const onFormSubmitHandler = (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        const data = {
-            name: name.trim(),
-            contact: contactNo.trim(),
-            address: address.trim(),
-            type: type.trim(),
-            email: email.trim(),
-            password: password.trim(),
-            city: city.trim(),
-            state: state.trim(),
-            country: country.trim(),
-            pincode: pincode.trim(),
-        };
-
-        const options = {
-            method: "POST",
-            url: "https://mywellness-paras248.koyeb.app/api/auth/signup/hospital",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-            },
-            data,
-        };
-        axios
-            .request(options)
-            .then((response) => {
-                setIsLoading(false);
-                setResponse(response.data.user);
-                onOpen();
-            })
-            .catch((err) => {
-                setIsLoading(false);
-                toast({
-                    title: err.response.data,
-                    status: "error",
-                    isClosable: false,
-                    position: "bottom-right",
-                    duration: 2000,
-                });
-            });
-        setName("");
-        setContactNo("");
-        setAddress("");
-        setEmail("");
-        setPassword("");
-        setCity("");
-        setState("");
-        setCountry("");
-        setPincode("");
-        setType("");
-    };
 
     return (
         <>
@@ -107,77 +106,142 @@ const page = () => {
                 </div>
             </Header>
             <SignupLayout heading='Register Hospital'>
-                <form onSubmit={onFormSubmitHandler}>
+                <form onSubmit={handleSubmit}>
                     {isLoading && <LoaderModal />}
+
                     <LabelledInput
+                        style={{ flex: 1 }}
                         label='Name'
                         id='name'
-                        value={name}
-                        setFunction={setName}
+                        value={values.name}
+                        setFunction={handleChange}
+                        onBlur={handleBlur}
                         type='text'
+                        name='name'
+                        error={errors.name}
+                        touched={touched.name}
+                        placeholder='Hospital Name'
                     />
-                    <LabelledInput
-                        label='Contact No'
-                        id='ContactNo'
-                        value={contactNo}
-                        setFunction={setContactNo}
-                        type='text'
-                    />
-                    <LabelledInput
-                        label='Address'
-                        id='address'
-                        value={address}
-                        setFunction={setAddress}
-                        type='text'
-                    />
-                    <LabelledInput
-                        label='City'
-                        id='city'
-                        value={city}
-                        setFunction={setCity}
-                        type='text'
-                    />
-                    <LabelledInput
-                        label='Pincode'
-                        id='pincode'
-                        value={pincode}
-                        setFunction={setPincode}
-                        type='text'
-                    />
-                    <LabelledInput
-                        label='State'
-                        id='state'
-                        value={state}
-                        setFunction={setState}
-                        type='text'
-                    />
-                    <LabelledInput
-                        label='Country'
-                        id='country'
-                        value={country}
-                        setFunction={setCountry}
-                        type='text'
-                    />
-                    <LabelledInput
-                        label='Type'
-                        id='type'
-                        value={type}
-                        setFunction={setType}
-                        type='text'
-                    />
+                    <div className='flex flex-row gap-2 items-center'>
+                        <LabelledInput
+                            style={{ flex: 1 }}
+                            label='Contact'
+                            id='contactNo'
+                            value={values.contactNo}
+                            setFunction={handleChange}
+                            onBlur={handleBlur}
+                            type='text'
+                            name='contactNo'
+                            error={errors.contactNo}
+                            touched={touched.contactNo}
+                            placeholder='Contact'
+                        />
+                        <LabelledInput
+                            style={{ flex: 1 }}
+                            label='Type'
+                            id='type'
+                            value={values.type}
+                            setFunction={handleChange}
+                            onBlur={handleBlur}
+                            type='text'
+                            name='type'
+                            error={errors.type}
+                            touched={touched.type}
+                            placeholder='Type'
+                        />
+                    </div>
+
+                    <div className='flex flex-row gap-2 items-center'>
+                        <LabelledInput
+                            style={{ flex: 1 }}
+                            label='Address'
+                            id='address'
+                            value={values.address}
+                            setFunction={handleChange}
+                            onBlur={handleBlur}
+                            type='text'
+                            name='address'
+                            error={errors.address}
+                            touched={touched.address}
+                            placeholder='Address'
+                        />
+                        <LabelledInput
+                            label='City'
+                            id='city'
+                            value={values.city}
+                            setFunction={handleChange}
+                            onBlur={handleBlur}
+                            type='text'
+                            name='city'
+                            error={errors.city}
+                            touched={touched.city}
+                            placeholder='City'
+                        />
+                    </div>
+                    <div className='flex flex-row gap-2 items-center '>
+                        <LabelledInput
+                            label='Pincode'
+                            id='pincode'
+                            value={values.pincode}
+                            setFunction={handleChange}
+                            onBlur={handleBlur}
+                            type='text'
+                            name='pincode'
+                            error={errors.pincode}
+                            touched={touched.pincode}
+                            placeholder='Pincode'
+                        />
+                        <LabelledInput
+                            style={{ flex: 1 }}
+                            label='State'
+                            id='state'
+                            value={values.state}
+                            setFunction={handleChange}
+                            onBlur={handleBlur}
+                            type='text'
+                            name='state'
+                            error={errors.state}
+                            touched={touched.state}
+                            placeholder='State'
+                        />
+                        <LabelledInput
+                            style={{ flex: 1 }}
+                            label='Country'
+                            id='country'
+                            value={values.country}
+                            setFunction={handleChange}
+                            onBlur={handleBlur}
+                            type='text'
+                            name='country'
+                            error={errors.country}
+                            touched={touched.country}
+                            placeholder='Country'
+                        />
+                    </div>
+
                     <LabelledInput
                         label='Email'
                         id='email'
-                        value={email}
-                        setFunction={setEmail}
+                        value={values.email}
+                        setFunction={handleChange}
+                        onBlur={handleBlur}
                         type='text'
+                        name='email'
+                        error={errors.email}
+                        touched={touched.email}
+                        placeholder='Email'
                     />
                     <LabelledInput
                         label='Password'
                         id='password'
-                        value={password}
-                        setFunction={setPassword}
+                        value={values.password}
+                        setFunction={handleChange}
+                        onBlur={handleBlur}
                         type='text'
+                        name='password'
+                        error={errors.password}
+                        touched={touched.password}
+                        placeholder='Password'
                     />
                     <SubmitButton
                         text='Register'
