@@ -97,21 +97,3 @@ const SearchInput = (props) => {
 };
 
 export default SearchInput;
-
-
-const [name, SetName] = useState("");
-const [age, setAge] = useState(0);
-
-const onSubmitHander = async() => {
-	
-	const options = {
-		url: "<your-url>",
-		method: "POST",
-		data: {
-			name,  // this is equivalent to 'name : name' as both sides have same name
-			age,   // this is equivalent to 'age: age' as both sides have same name
-		}	
-	}	
-	const response = await axios.request(options);
-}
-
