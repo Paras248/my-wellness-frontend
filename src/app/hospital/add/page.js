@@ -44,6 +44,7 @@ const page = () => {
                     doctorId,
                     hospitalId,
                     patientId,
+                    createdAt: new Date()
                 },
                 admissionDate: `${Date.now()}`,
                 dischargeDate: `${Date.now()}`,
